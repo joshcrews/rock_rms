@@ -6,7 +6,8 @@ class RockMock < Sinatra::Base
   # DELETE requests
   [
     "FinancialTransactions/:id",
-    "GroupMembers/:id"
+    "GroupMembers/:id",
+    "FinancialBatches/:id"
   ].each do |end_point|
     delete "/api/#{end_point}" do
       content_type :json
@@ -21,6 +22,8 @@ class RockMock < Sinatra::Base
     groups:        'Groups',
     people_search: 'People/Search',
     phone_numbers: 'PhoneNumbers',
+    batches:       'FinancialBatches',
+    batch:         'FinancialBatches/:id',
     donations:     'FinancialTransactions',
     donation:      'FinancialTransactions/:id',
   }.each do |json, end_point|
@@ -32,7 +35,8 @@ class RockMock < Sinatra::Base
 
   # PATCH requests
   {
-    update_donation: 'FinancialTransactions/:id'
+    update_donation: 'FinancialTransactions/:id',
+    batch: 'FinancialBatches/:id'
   }.each do |json, end_point|
     patch "/api/#{end_point}" do
       content_type :json
@@ -45,7 +49,8 @@ class RockMock < Sinatra::Base
   # POST requests
   {
     create_group_member: 'GroupMembers',
-    create_donation: 'FinancialTransactions'
+    create_donation: 'FinancialTransactions',
+    create_batch: 'FinancialBatches'
   }.each do |json, end_point|
     post "/api/#{end_point}" do
       json_response 201, "#{json}.json"
